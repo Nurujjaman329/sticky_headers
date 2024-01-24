@@ -1,224 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
-void main() => runApp(MyApp());
+import 'homepage.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
+void main() {
+  runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  bool _showNavBar = true;
-  ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      if (_scrollController.offset > 230) {
-        if (_showNavBar) {
-          setState(() {
-            _showNavBar = false;
-          });
-        }
-      } else {
-        if (!_showNavBar) {
-          setState(() {
-            _showNavBar = true;
-          });
-        }
-      }
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final title = 'GeeksforGeeks';
-
     return MaterialApp(
-      home: Scaffold(
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: <Widget>[
-            SliverAppBar(
-              expandedHeight: 300,
-              floating: false,
-              pinned: true,
-              flexibleSpace: LayoutBuilder(
-                builder: (context, constraints) {
-                  bool isScrollingDown = _scrollController.hasClients &&
-                      _scrollController.position.userScrollDirection ==
-                          ScrollDirection.reverse;
-
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    height: 340,
-                    width: double.infinity,
-                    child: isScrollingDown
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'TEST',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                'TEST',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                'TEST',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 1,
-                              ),
-                              Container(
-                                height: 1,
-                              ),
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'TEST',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      'TEST',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      'TEST',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: NetworkImage('https://picsum.photos/400/400'),
-                      fit: BoxFit.cover,
-                    )),
-                  );
-                },
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                addSemanticIndexes: false,
-                (context, index) => ListTile(
-                  tileColor: (index % 2 == 0) ? Colors.white : Colors.green[50],
-                  title: Center(
-                    child: Text(
-                      '$index',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 50,
-                        color: Colors.greenAccent[400],
-                      ),
-                    ),
-                  ),
-                ),
-                childCount: 51,
-              ),
-            ),
-            SliverStickyHeader(
-              header: Container(
-                height: 60.0,
-                color: Colors.lightBlue,
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Header #0',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => ListTile(
-                    leading: CircleAvatar(
-                      child: Text('0'),
-                    ),
-                    title: Text('List tile #$i'),
-                  ),
-                  childCount: 50,
-                ),
-              ),
-            ),
-            SliverStickyHeader(
-              header: Container(
-                height: 20.0,
-                color: Colors.lightBlue,
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Header #1',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => ListTile(
-                    leading: CircleAvatar(
-                      child: Text('0'),
-                    ),
-                    title: Text('List tile #$i +1'),
-                  ),
-                  childCount: 40,
-                ),
-              ),
-            ),
-            SliverStickyHeader(
-              header: Container(
-                height: 60.0,
-                color: Colors.lightBlue,
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Header #2',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, i) => Container(
-                    child: Image.network(
-                      'https://picsum.photos/400/400',
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 200.0,
-                    ),
-                  ),
-                  childCount: 3,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'Weather App',
+      home: HomePage(),
     );
   }
 }
+
+//class HomePage extends StatefulWidget {
+//  @override
+//  State<HomePage> createState() => _HomePageState();
+//}
+
+//class _HomePageState extends State<HomePage> {
+//  ScrollController _scrollController = ScrollController();
+//  double _appBarOpacity = 1.0;
+
+//  @override
+//  void initState() {
+//    super.initState();
+
+//    _scrollController.addListener(() {
+//      double newOpacity =
+//          1.0 - (_scrollController.offset / 150).clamp(0.0, 1.0);
+
+//      if (newOpacity != _appBarOpacity) {
+//        setState(() {
+//          _appBarOpacity = newOpacity;
+//        });
+//      }
+//    });
+//  }
+
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      body: CustomScrollView(
+//        controller: _scrollController,
+//        slivers: <Widget>[
+//          SliverAppBar(
+//            expandedHeight: 200.0,
+//            floating: false,
+//            pinned: true,
+//            flexibleSpace: LayoutBuilder(
+//              builder: (context, constraints) {
+//                return FlexibleSpaceBar(
+//                  title: Opacity(
+//                    opacity: _appBarOpacity,
+//                    child: Text('Current Weather'),
+//                  ),
+//                  background: Image.network(
+//                    'https://example.com/current_weather_background.jpg',
+//                    fit: BoxFit.cover,
+//                  ),
+//                );
+//              },
+//            ),
+//          ),
+//          SliverToBoxAdapter(
+//            child: Container(
+//              height: 500,
+//              child: ListView.builder(
+//                  itemCount: 10,
+//                  itemBuilder: (context, index) => StickyHeaderBuilder(
+//                      builder: (context, st) {
+//                        st = 1 - st.clamp(0, 10);
+//                        return Container(
+//                          width: double.infinity,
+//                          color: Color.lerp(Colors.white, Colors.green, st),
+//                          child: Padding(
+//                            padding: const EdgeInsets.all(16.0),
+//                            child: Text("Sticky Headers $index"),
+//                          ),
+//                        );
+//                      },
+//                      content: Text("Content"))),
+//            ),
+//          ),
+//          SliverStickyHeader(
+//            sticky: true,
+//            header: Container(
+//              height: 60.0,
+//              color: Colors.green,
+//              alignment: Alignment.center,
+//              child: Text('10-Day Forecast0'),
+//            ),
+//            sliver: SliverList(
+//              delegate: SliverChildBuilderDelegate(
+//                (context, index) {
+//                  index = 1 - index.clamp(0, 1);
+//                  return ListTile(
+//                    title: Text('Day $index'),
+//                    // Additional forecast details here
+//                  );
+//                },
+//                childCount: 10,
+//              ),
+//            ),
+//          ),
+//          SliverStickyHeader(
+//            header: Container(
+//              height: 60.0,
+//              color: Colors.grey.withOpacity(1.0 - _appBarOpacity),
+//              alignment: Alignment.center,
+//              child: Text('10-Day Forecast1'),
+//            ),
+//            sliver: SliverList(
+//              delegate: SliverChildBuilderDelegate(
+//                (BuildContext context, int index) {
+//                  return ListTile(
+//                    title: Text('Day $index'),
+//                    // Additional forecast details here
+//                  );
+//                },
+//                childCount: 15,
+//              ),
+//            ),
+//          ),
+
+//          // Additional Slivers for more content or sections
+//        ],
+//      ),
+//    );
+//  }
+//}

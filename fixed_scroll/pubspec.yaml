@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   sticky_headers: ^0.3.0+2
   flutter_sticky_header: ^0.6.5
+  flutter_faded_list: ^0.0.4
+  fading_edge_scrollview: ^4.0.0
 
 dev_dependencies:
   flutter_test:
