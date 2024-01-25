@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'homepage.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -10,127 +8,261 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Weather App',
-      home: HomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
-//class HomePage extends StatefulWidget {
-//  @override
-//  State<HomePage> createState() => _HomePageState();
-//}
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter UI Design'),
+      ),
+      body: ListView(scrollDirection: Axis.vertical, children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Card
+            Card(
+              margin: EdgeInsets.all(16.0),
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'This is a Card',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+            ),
 
-//class _HomePageState extends State<HomePage> {
-//  ScrollController _scrollController = ScrollController();
-//  double _appBarOpacity = 1.0;
+            Container(
+              height: 200,
+              width: 300,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Container(
+                    height: 20,
+                    width: 20,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    height: 20,
+                    width: 20,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    height: 20,
+                    width: 80,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    height: 20,
+                    width: 80,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    height: 20,
+                    width: 80,
+                    color: Colors.green,
+                  ),
+                  Container(
+                    height: 20,
+                    width: 80,
+                    color: Colors.red,
+                  ),
+                ],
+              ),
+            ),
 
-//  @override
-//  void initState() {
-//    super.initState();
+            Container(
+              height: 150.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 150.0,
+                    margin: EdgeInsets.all(8.0),
+                    color: Colors.blue,
+                    child: Center(
+                      child: Text(
+                        'Item $index',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
 
-//    _scrollController.addListener(() {
-//      double newOpacity =
-//          1.0 - (_scrollController.offset / 150).clamp(0.0, 1.0);
+            // Multiple Columns
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 1',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 1'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 2'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
 
-//      if (newOpacity != _appBarOpacity) {
-//        setState(() {
-//          _appBarOpacity = newOpacity;
-//        });
-//      }
-//    });
-//  }
-
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      body: CustomScrollView(
-//        controller: _scrollController,
-//        slivers: <Widget>[
-//          SliverAppBar(
-//            expandedHeight: 200.0,
-//            floating: false,
-//            pinned: true,
-//            flexibleSpace: LayoutBuilder(
-//              builder: (context, constraints) {
-//                return FlexibleSpaceBar(
-//                  title: Opacity(
-//                    opacity: _appBarOpacity,
-//                    child: Text('Current Weather'),
-//                  ),
-//                  background: Image.network(
-//                    'https://example.com/current_weather_background.jpg',
-//                    fit: BoxFit.cover,
-//                  ),
-//                );
-//              },
-//            ),
-//          ),
-//          SliverToBoxAdapter(
-//            child: Container(
-//              height: 500,
-//              child: ListView.builder(
-//                  itemCount: 10,
-//                  itemBuilder: (context, index) => StickyHeaderBuilder(
-//                      builder: (context, st) {
-//                        st = 1 - st.clamp(0, 10);
-//                        return Container(
-//                          width: double.infinity,
-//                          color: Color.lerp(Colors.white, Colors.green, st),
-//                          child: Padding(
-//                            padding: const EdgeInsets.all(16.0),
-//                            child: Text("Sticky Headers $index"),
-//                          ),
-//                        );
-//                      },
-//                      content: Text("Content"))),
-//            ),
-//          ),
-//          SliverStickyHeader(
-//            sticky: true,
-//            header: Container(
-//              height: 60.0,
-//              color: Colors.green,
-//              alignment: Alignment.center,
-//              child: Text('10-Day Forecast0'),
-//            ),
-//            sliver: SliverList(
-//              delegate: SliverChildBuilderDelegate(
-//                (context, index) {
-//                  index = 1 - index.clamp(0, 1);
-//                  return ListTile(
-//                    title: Text('Day $index'),
-//                    // Additional forecast details here
-//                  );
-//                },
-//                childCount: 10,
-//              ),
-//            ),
-//          ),
-//          SliverStickyHeader(
-//            header: Container(
-//              height: 60.0,
-//              color: Colors.grey.withOpacity(1.0 - _appBarOpacity),
-//              alignment: Alignment.center,
-//              child: Text('10-Day Forecast1'),
-//            ),
-//            sliver: SliverList(
-//              delegate: SliverChildBuilderDelegate(
-//                (BuildContext context, int index) {
-//                  return ListTile(
-//                    title: Text('Day $index'),
-//                    // Additional forecast details here
-//                  );
-//                },
-//                childCount: 15,
-//              ),
-//            ),
-//          ),
-
-//          // Additional Slivers for more content or sections
-//        ],
-//      ),
-//    );
-//  }
-//}
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Column 2',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Text('Item 3'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Item 4'),
+                    Spacer(),
+                    Icon(Icons.star),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
+}

@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ScrollController _scrollController = ScrollController();
   double _appBarOpacity = 1.0;
+  bool _visible = true;
 
   @override
   void initState() {
@@ -40,8 +41,55 @@ class _HomePageState extends State<HomePage> {
         body: Stack(
           children: [
             CustomScrollView(
+              //shrinkWrap: true,
               controller: _scrollController,
               slivers: <Widget>[
+                SliverGrid(
+                  gridDelegate: _gridDelegate,
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return const Text('OK.');
+                    },
+                    childCount: 2,
+                  ),
+                ),
+                SliverGrid(
+                  gridDelegate: _gridDelegate,
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return const Text('...');
+                    },
+                    childCount: 2,
+                    semanticIndexOffset: 2,
+                  ),
+                ),
+                SliverAnimatedOpacity(
+                  opacity: _visible ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 500),
+                  sliver: SliverFixedExtentList(
+                    itemExtent: 20.0,
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return Container(
+                          color: index.isEven
+                              ? Colors.indigo[200]
+                              : Colors.orange[200],
+                        );
+                      },
+                      childCount: 2,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                    child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      _visible = !_visible;
+                    });
+                  },
+                  tooltip: 'Toggle opacity',
+                  child: const Icon(Icons.flip),
+                )),
                 SliverAppBar(
                   expandedHeight: 300,
                   floating: false,
@@ -62,9 +110,7 @@ class _HomePageState extends State<HomePage> {
                       return Container(
                         height: 340,
                         width: double.infinity,
-                        child: Stack(
-                          children: [],
-                        ),
+                        child: Center(child: Text("Appbar")),
                         decoration: BoxDecoration(
                           color: Color(0XFF20A248),
                         ),
