@@ -39,6 +39,10 @@ dependencies:
   flutter_sticky_header: ^0.6.5
   flutter_faded_list: ^0.0.4
   fading_edge_scrollview: ^4.0.0
+  scrollable_list_tab_scroller: ^1.1.2
+  easy_stepper: ^0.8.3
+  shimmer: ^3.0.0
+  skeletonizer: ^1.0.1
 
 dev_dependencies:
   flutter_test:
